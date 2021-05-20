@@ -15,8 +15,16 @@ docker build . -f Dockerfile -t xgo
 go build xgo.go
 ```
 
+## 设置环境变量
+```
+export GOPATH=~/go
+export GOPROXY=https://goproxy.cn,direct
+```
+
 ## 编译
-./xgo --image=xgo --targets=./. $PROJECT_DIR
+```
+./xgo --image=xgo --targets=./. --pkg=$PKG_DIR $PROJECT_DIR
+```
 
 # 支持的编译目标
 - linux
