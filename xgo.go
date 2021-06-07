@@ -339,6 +339,7 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 	if usesModules {
 		args = append(args, []string{"-e", "GO111MODULE=on"}...)
 		args = append(args, []string{"-v", os.Getenv("GOPATH") + ":/go"}...)
+		args = append(args, []string{"-v", os.Getenv("GOCACHE") + ":/root/.cache/go-build"}...)
 
 		// Map this repository to the /source folder
 		absRepository, err := filepath.Abs(config.Repository)
