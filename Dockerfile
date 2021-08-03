@@ -48,7 +48,7 @@ RUN \
   export ROOT_DIST_SHA=bbdb935699e0b24d90e2451346da76121b2412d30930eabcd80907c230d098b7 && \
   \
   $BOOTSTRAP_PURE
-RUN go env -w https://goproxy.cn,direct
+RUN go env -w GOPROXY=https://goproxy.cn,direct
 
 # Inject the container entry point, the build script
 ADD build.sh /build.sh
