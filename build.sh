@@ -229,13 +229,27 @@ for TARGET in $TARGETS; do
         echo "Go version too low, skipping linux/arm-7..."
       else
         echo "Compiling for linux/arm-7..."
+        CC=arm-linux-gnueabi-gcc-6 CXX=arm-linux-gnueabi-g++-6 HOST=arm-linux-gnueabi PREFIX=/usr/arm-linux-gnueabi CFLAGS="-march=armv7-a -fPIC" CXXFLAGS="-march=armv7-a -fPIC" $BUILD_DEPS /deps ${DEPS_ARGS[@]}
+        export PKG_CONFIG_PATH=/usr/arm-linux-gnueabi/lib/pkgconfig
+  
+        if [[ "$USEMODULES" == false ]]; then
+          CC=arm-linux-gnueabi-gcc-6 CXX=arm-linux-gnueabi-g++-6 GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 CGO_CFLAGS="-march=armv7-a -fPIC" CGO_CXXFLAGS="-march=armv7-a -fPIC" go get $V $X "${T[@]}" --ldflags="$V $LD" -d $PACK_RELPATH
+        fi
+        CC=arm-linux-gnueabi-gcc-6 CXX=arm-linux-gnueabi-g++-6 GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 CGO_CFLAGS="-march=armv7-a -fPIC" CGO_CXXFLAGS="-march=armv7-a -fPIC" go build $V $X $TP $MOD "${T[@]}" --ldflags="$V $LD" $BM -o "/build/$NAME-linux-arm-7`extension linux`" $PACK_RELPATH
+      fi
+    fi
+    if ([ $XGOARCH == "." ] || [ $XGOARCH == "arm-7hf" ]); then
+      if [ "$GO_VERSION" -lt 150 ]; then
+        echo "Go version too low, skipping linux/arm-7hf..."
+      else
+        echo "Compiling for linux/arm-7hf..."
         CC=arm-linux-gnueabihf-gcc-6 CXX=arm-linux-gnueabihf-g++-6 HOST=arm-linux-gnueabihf PREFIX=/usr/arm-linux-gnueabihf CFLAGS="-march=armv7-a -fPIC" CXXFLAGS="-march=armv7-a -fPIC" $BUILD_DEPS /deps ${DEPS_ARGS[@]}
         export PKG_CONFIG_PATH=/usr/arm-linux-gnueabihf/lib/pkgconfig
   
         if [[ "$USEMODULES" == false ]]; then
           CC=arm-linux-gnueabihf-gcc-6 CXX=arm-linux-gnueabihf-g++-6 GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 CGO_CFLAGS="-march=armv7-a -fPIC" CGO_CXXFLAGS="-march=armv7-a -fPIC" go get $V $X "${T[@]}" --ldflags="$V $LD" -d $PACK_RELPATH
         fi
-        CC=arm-linux-gnueabihf-gcc-6 CXX=arm-linux-gnueabihf-g++-6 GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 CGO_CFLAGS="-march=armv7-a -fPIC" CGO_CXXFLAGS="-march=armv7-a -fPIC" go build $V $X $TP $MOD "${T[@]}" --ldflags="$V $LD" $BM -o "/build/$NAME-linux-arm-7`extension linux`" $PACK_RELPATH
+        CC=arm-linux-gnueabihf-gcc-6 CXX=arm-linux-gnueabihf-g++-6 GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 CGO_CFLAGS="-march=armv7-a -fPIC" CGO_CXXFLAGS="-march=armv7-a -fPIC" go build $V $X $TP $MOD "${T[@]}" --ldflags="$V $LD" $BM -o "/build/$NAME-linux-arm-7hf`extension linux`" $PACK_RELPATH
       fi
     fi
     if ([ $XGOARCH == "." ] || [ $XGOARCH == "arm64" ]); then
