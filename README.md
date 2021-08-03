@@ -33,6 +33,7 @@ export GOPROXY=https://goproxy.cn,direct
   - arm-5
   - arm-6
   - arm-7
+  - arm-7-el
   - arm64
   - mips64
   - mips64le
